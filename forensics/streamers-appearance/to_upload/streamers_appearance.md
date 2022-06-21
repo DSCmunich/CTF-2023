@@ -1,6 +1,6 @@
 # Streamers appearance
 
-Author: k-gomez
+Author: k-gomez \
 Points: tbd...
 
 ## Description
