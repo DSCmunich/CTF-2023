@@ -11,4 +11,4 @@ The police department wants to know the unique identifier of the car. What are t
 
 ## Flag format 
 
-`CTF{<unique-identifier>}`
+`DSC{<unique-identifier>}`
