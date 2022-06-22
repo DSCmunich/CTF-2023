@@ -6,7 +6,7 @@ We have been notified of a vehicle accident! As forensic investigators, we need 
 
 The police department wants to know the unique identifier of the car. What are they talking about?
 
-The flag format is `CTF{<unique-identifier>}`
+The flag format is `DSC{<unique-identifier>}`
 
 ## Solution
 
@@ -89,5 +89,5 @@ xµVÛrÓ0}÷Wì£ÄL]-«oÐ¦3íb`à!'ê [...]
 
 Let's add the keywords `stream` and `endstream` around these chunks and check what happens. We can see two places where the chunks of data are not rounded by the keywords. If we add them and save the file, we can view the PDF document.
 
-The task description asks for a unique identifier for a vehicle. A quick look on the Internet tells us that the so-called *VIN* or *vehicle identification number* is the unique identifier for each vehicle. In our case this is `5YJ3E1EA1JF0000`. Consequently, the license plate number is `CTF{5YJ3E1EA1JF0000}`.
+The task description asks for a unique identifier for a vehicle. A quick look on the Internet tells us that the so-called *VIN* or *vehicle identification number* is the unique identifier for each vehicle. In our case this is `5YJ3E1EA1JF0000`. Consequently, the license plate number is `DSC{5YJ3E1EA1JF0000}`.
 
