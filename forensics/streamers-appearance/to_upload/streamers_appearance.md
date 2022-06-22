@@ -1,7 +1,7 @@
 # Streamers appearance
 
 Author: k-gomez \
-Points: tbd...
+Points: tbd... (easy / medium)
 
 ## Description
 
