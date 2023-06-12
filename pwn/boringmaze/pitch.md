@@ -25,6 +25,7 @@ SPOILER ALERT: please don't read this if you intend to beta-test the chall
 
 ## exploit 
 
+- explore the labyrinth (ex: depth first search)
 - use the previously mentioned vulns to give you a large vision range: you can get a very large vision range either by calling the genius many times (but that's long), or by noticing that there is one value near the maze that increases by one every time you increase your vision -> break the wall next to it, then use the maze building power to make it arbitrarily high
 - use the wall power to allow yourself to teleport-> you now have arbitrary read and write
 - exploit by overwriting the GOT

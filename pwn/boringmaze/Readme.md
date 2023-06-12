@@ -13,3 +13,7 @@ See [pitch](./pitch.md).
 ## Deployment
 
 put Dockerfile, boringmaze, maze.txt and flag.txt (note: you can change this one to whatever you want) in a folder, then build and run the docker with the port you want
+
+## Exploit
+
+See [exploit script](./exploit.py) and [pitch](./pitch.md)
