@@ -22,6 +22,10 @@ Your friend has encrypted a PDF file using their custom encryption algorithm and
 
 The file contains the secret flag. Can you reveal it, given the file decrypted.pdf?
 
+## Setup
+
+Just provide the encrypted pdf with the challenge description
+
 ## Solution
 
 The file is encrypted with a 4 byte long key. This is vulnerable to plaintext attacks.

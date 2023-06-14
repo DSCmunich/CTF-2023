@@ -7,8 +7,8 @@ import flask
 from cryptography.hazmat.primitives import padding, ciphers
 from cryptography.hazmat.primitives.ciphers import modes, algorithms
 
-TOKEN_KEY = os.urandom(32)
-ALGO = algorithms.AES(TOKEN_KEY)
+cookie_KEY = os.urandom(32)
+ALGO = algorithms.AES(cookie_KEY)
 BLOCK_SIZE = ALGO.block_size // 8
 
 app = flask.Flask(__name__)
@@ -74,8 +74,8 @@ ADMIN_PAGE = (
     TEMPLATE
     % """
     <h1 class="display-4 text-center mb-4">Welcome, Admin!</h1>
-    <p class="lead text-center">Congratulations on conquering the challenge. You are truly remarkable!</p>
-    <p class="lead text-center">FLAG{TBD}</p>
+    <p class="lead text-center">Your solved the secure-cookie challenge of the GDSC 2023 CTF. You are truly remarkable!</p>
+    <p class="lead text-center">FLAG{l337_1v_h4ck1n6}</p>
 """
 )
 
@@ -106,12 +106,12 @@ PRIVACY_PAGE = (
 )
 
 
-def check_token(token):
-    if not token:
+def check_cookie(cookie):
+    if not cookie:
         return None
 
-    token_bytes = base64.b64decode(token)
-    iv, ciphertext = token_bytes[:BLOCK_SIZE], token_bytes[BLOCK_SIZE:]
+    cookie_bytes = base64.b64decode(cookie)
+    iv, ciphertext = cookie_bytes[:BLOCK_SIZE], cookie_bytes[BLOCK_SIZE:]
 
     if len(iv) != BLOCK_SIZE or not ciphertext or len(ciphertext) % BLOCK_SIZE != 0:
         return None
@@ -129,12 +129,12 @@ def check_token(token):
     return json.loads(plaintext.decode("utf8", errors="replace"))
 
 
-def create_token(username, email):
+def create_cookie(username, email):
     id = random.randint(0x8000_0000, 0xFFFF_FFFF)
 
     iv = os.getrandom(BLOCK_SIZE)
 
-    plaintext = json.dumps({"id": id, "username": username, "email": email}).encode(
+    plaintext = json.dumps({"id": id, "email": email, "username": username}).encode(
         "utf8"
     )
 
@@ -150,9 +150,9 @@ def create_token(username, email):
 
 @app.route("/")
 def index():
-    token = flask.request.args.get("token")
+    cookie = flask.request.args.get("cookie")
 
-    result = check_token(token)
+    result = check_cookie(cookie)
     if not result:
         return WELCOME_PAGE
 
@@ -167,8 +167,8 @@ def register():
     username = flask.request.form["username"]
     email = flask.request.form["email"]
 
-    token = create_token(username, email)
-    return flask.redirect(flask.url_for("index", token=token))
+    cookie = create_cookie(username, email)
+    return flask.redirect(flask.url_for("index", cookie=cookie))
 
 
 @app.route("/privacy")

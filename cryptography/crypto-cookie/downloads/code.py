@@ -7,8 +7,8 @@ import flask
 from cryptography.hazmat.primitives import padding, ciphers
 from cryptography.hazmat.primitives.ciphers import modes, algorithms
 
-TOKEN_KEY = os.urandom(32)
-ALGO = algorithms.AES(TOKEN_KEY)
+cookie_KEY = os.urandom(32)
+ALGO = algorithms.AES(cookie_KEY)
 BLOCK_SIZE = ALGO.block_size // 8
 
 app = flask.Flask(__name__)
@@ -74,7 +74,8 @@ ADMIN_PAGE = (
     TEMPLATE
     % """
     <h1 class="display-4 text-center mb-4">Welcome, Admin!</h1>
-    <p class="lead text-center">Congratulations on conquering the challenge. You are truly remarkable!</p>
+    <p class="lead text-center">Your solved the secure-cookie challenge of the GDSC 2023 CTF. You are truly remarkable!</p>
+    <p class="lead text-center">FLAG{Never Gonna Give You Up}</p>
 """
 )
 
@@ -100,17 +101,17 @@ PRIVACY_PAGE = (
     <p>We employ robust security measures to protect your data from unauthorized access, alteration, or disclosure. Our encryption protocols, firewalls, and regular security audits ensure that your information is safe and secure.</p>
     <h2>Python Code</h2>
     <p>For the sake of transparency, we provide the Python code that powers our website. You can download the code by clicking the link below:</p>
-    <p><a href="/download/code.py" download>Download Python Code</a></p>
+    <p><a href="/downloads/code.py" download>Download Python Code</a></p>
 """
 )
 
 
-def check_token(token):
-    if not token:
+def check_cookie(cookie):
+    if not cookie:
         return None
 
-    token_bytes = base64.b64decode(token)
-    iv, ciphertext = token_bytes[:BLOCK_SIZE], token_bytes[BLOCK_SIZE:]
+    cookie_bytes = base64.b64decode(cookie)
+    iv, ciphertext = cookie_bytes[:BLOCK_SIZE], cookie_bytes[BLOCK_SIZE:]
 
     if len(iv) != BLOCK_SIZE or not ciphertext or len(ciphertext) % BLOCK_SIZE != 0:
         return None
@@ -128,12 +129,12 @@ def check_token(token):
     return json.loads(plaintext.decode("utf8", errors="replace"))
 
 
-def create_token(username, email):
+def create_cookie(username, email):
     id = random.randint(0x8000_0000, 0xFFFF_FFFF)
 
     iv = os.getrandom(BLOCK_SIZE)
 
-    plaintext = json.dumps({"id": id, "username": username, "email": email}).encode(
+    plaintext = json.dumps({"id": id, "email": email, "username": username}).encode(
         "utf8"
     )
 
@@ -149,9 +150,9 @@ def create_token(username, email):
 
 @app.route("/")
 def index():
-    token = flask.request.args.get("token")
+    cookie = flask.request.args.get("cookie")
 
-    result = check_token(token)
+    result = check_cookie(cookie)
     if not result:
         return WELCOME_PAGE
 
@@ -166,8 +167,8 @@ def register():
     username = flask.request.form["username"]
     email = flask.request.form["email"]
 
-    token = create_token(username, email)
-    return flask.redirect(flask.url_for("index", token=token))
+    cookie = create_cookie(username, email)
+    return flask.redirect(flask.url_for("index", cookie=cookie))
 
 
 @app.route("/privacy")
@@ -180,5 +181,12 @@ def static_css():
     return flask.send_from_directory("static", "style.css", mimetype="text/css")
 
 
+@app.route("/downloads/code.py")
+def download_code():
+    filename = "downloads/code.py"
+    file_path = os.path.join(app.root_path, filename)
+    return flask.send_file(file_path, as_attachment=True)
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

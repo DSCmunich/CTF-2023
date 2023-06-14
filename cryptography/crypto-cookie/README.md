@@ -5,7 +5,21 @@ Points: tbd... (easy / medium)
 
 ## Description
 
-I'm registered admin (user-id 1) on this secure website, but lost my token. Can you become admin on the webserver?
+Welcome to the Secret Website! Only the chosen ones can enter...
+
+As an admin of this secure website, I had registered with a token, but unfortunately, I lost it. Now, I need your help to regain my admin access. Can you become an admin (id=1) on the webserver?
+
+Your task is to break the cookie to obtain the admin access. You can register a new account on the website, and you will receive a token. 
+
+Your final goal is to obtain the modified token that grants you admin access to the Secret Website and the Flag.
+
+Can you crack the encryption and become the ultimate admin?
+
+## Setup
+
+- Run the docker container
+- The source code is available on the webserver in the privacy section
+- Challenge is currently running on port 5000
 
 
 ## Solution
