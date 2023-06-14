@@ -20,7 +20,7 @@ Your friend, a talented developer, has come up with a custom encryption algorith
 
 Your friend has encrypted a PDF file using their custom encryption algorithm and sent it to you. They are confident that the encrypted file is secure and challenge you to decrypt it without knowing the secret key. They assure you that the encryption algorithm relies on strong principles and should be resistant to attacks.
 
-The file contains the secret flag. Can you reveal it, given the file decrypted.pdf?
+The file contains the secret flag. Can you reveal it, given the file encrypted.pdf?
 
 ## Setup
 
