@@ -1,0 +1,26 @@
+log:
+  level: "INFO"
+
+accessLog:
+  filePath: "/logs/access.log"
+
+entryPoints:
+  http:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+          priority: 1000
+  https:
+    address: ":443"
+
+providers:
+  docker:
+    network: "web"
+    watch: true
+    exposedByDefault: false
+  file:
+    directory: /etc/traefik/dynamic_conf
+    watch: true

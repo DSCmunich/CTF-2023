@@ -1,0 +1,72 @@
+version: '2'
+
+services:
+  ctfd:
+    image: ctfd/ctfd:latest
+    restart: always
+    environment:
+      - UPLOAD_FOLDER=/var/uploads
+      - DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd
+      - REDIS_URL=redis://cache:6379
+      - WORKERS=1
+      - LOG_FOLDER=/var/log/CTFd
+      - ACCESS_LOG=-
+      - ERROR_LOG=-
+      - REVERSE_PROXY=true
+    volumes:
+      - ./ctfd-data/logs:/var/log/CTFd
+      - ./ctfd-data/uploads:/var/uploads
+    depends_on:
+      - db
+    networks:
+      web:
+      internal:
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: '2.0g'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ctfd.rule=Host(`ctf.dscmunich.de`)"
+      - "traefik.http.routers.ctfd.entrypoints=https"
+      - "traefik.http.routers.ctfd.tls=true"
+
+  db:
+    image: mariadb:10.4.12
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=ctfd
+      - MYSQL_USER=ctfd
+      - MYSQL_PASSWORD=ctfd
+      - MYSQL_DATABASE=ctfd
+    volumes:
+      - .data/mysql:/var/lib/mysql
+    networks:
+      internal:
+    # This command is required to set mariadb defaults for ctfd
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: '1.0g'
+
+  cache:
+    image: redis:4
+    restart: always
+    volumes:
+    - .data/redis:/data
+    networks:
+      internal:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: '1.0g'
+
+networks:
+  web:
+    external: true
+  internal:
+    internal: true

@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:2.10"
+    container_name: "traefik"
+    restart: always
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - web
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: '0.5g'
+    volumes:
+      - "./logs:/logs"
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+      - "./ctf.dscmunich.de.yml:/etc/traefik/dynamic_conf/ctf.dscmunich.de.yml:ro"
+      - "./certs:/etc/certs/:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+networks:
+  web:
+    external: true

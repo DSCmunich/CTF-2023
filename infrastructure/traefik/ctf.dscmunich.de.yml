@@ -1,0 +1,4 @@
+tls:
+  certificates:
+    - certFile: /etc/certs/ctf.dscmunich.de.crt
+      keyFile: /etc/certs/ctf.dscmunich.de.key
