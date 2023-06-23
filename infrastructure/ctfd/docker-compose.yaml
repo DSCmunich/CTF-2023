@@ -42,6 +42,7 @@ services:
       - MYSQL_DATABASE=ctfd
     volumes:
       - .data/mysql:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
     networks:
       internal:
     # This command is required to set mariadb defaults for ctfd
