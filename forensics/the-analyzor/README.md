@@ -5,7 +5,7 @@ Points: tbd... (medium / hard)
 
 ## Description
 
-I gave the USB stick to an malware analysis company. They analyzed some of the files and created an malware-analysis folder. However, it seems that some of the files are missing in the directory. I really need to find out more about the identified malware. Can you determine the name of the malware from Comodo? This is the security vendor I use.
+I gave the USB stick to an malware analysis company. They analyzed some of the files and created an malware-analysis folder. However, it seems that some of the files are missing in the directory. I really need to find out more about the identified malware. Can you determine the name of the malware from Xcitium? This is the security vendor I use.
 
 You need to use the file from challenge `Lost vacation`.
 
@@ -15,7 +15,7 @@ You need to use the file from challenge `Lost vacation`.
 
 Reconstruct the files from the malware-analysis folder. Get the hash within the document: `02a7c7df31b0a93fc80b053e46dcfa1eeb82eff79c1c8d802db31f1d0db823fd`
 
-Google the hash and find the vendor analysis results in VirusTotal. Comodo *names* the file `Malware@#y5k2i037tivi`.
+Google the hash and find the vendor analysis results in VirusTotal. Xcitium *names* the file `Malware@#y5k2i037tivi`.
 
 
 ### Extended version
@@ -64,6 +64,6 @@ Recover the `results.doc` file as we already did in the `Lost vacation` challeng
 $ icat -r personal.img 33776780 > res.doc 
 ```
 
-We can open the file and find a malware-analysis report. The description indicates that the flag is the name of the malware from Comodo. Let's look up the hash using VirusTotal. VirusTotal identifies the hash as malicious. Comodo names the file `Malware@#y5k2i037tivi`.
+We can open the file and find a malware-analysis report. The description indicates that the flag is the name of the malware from Xcitium. Let's look up the hash using VirusTotal. VirusTotal identifies the hash as malicious. Xcitium names the file `Malware@#y5k2i037tivi`.
 
 The flag is: `DSC{Malware@#y5k2i037tivi}`
