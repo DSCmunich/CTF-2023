@@ -5,7 +5,7 @@ Points: tbd... (easy / medium)
 
 ## Description
 
-Welcome to the Secret Website! Only the chosen ones can enter...
+Welcome to the [Secret Website](https://crypto-cookie.ctf.dscmunich.de)! Only the chosen ones can enter...
 
 As an admin of this secure website, I had registered with a token, but unfortunately, I lost it. Now, I need your help to regain my admin access. Can you become an admin (id=1) on the webserver?
 

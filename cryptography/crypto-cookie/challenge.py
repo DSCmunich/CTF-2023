@@ -75,7 +75,7 @@ ADMIN_PAGE = (
     % """
     <h1 class="display-4 text-center mb-4">Welcome, Admin!</h1>
     <p class="lead text-center">Your solved the secure-cookie challenge of the GDSC 2023 CTF. You are truly remarkable!</p>
-    <p class="lead text-center">FLAG{l337_1v_h4ck1n6}</p>
+    <p class="lead text-center">DSC{l337_1v_h4ck1n6_53c0e9c77240}</p>
 """
 )
 
@@ -189,4 +189,4 @@ def download_code():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=False)

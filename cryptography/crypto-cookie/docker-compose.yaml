@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=443"
+      - "traefik.http.routers.my-service-name.rule=Host(`crypto-cookie.ctf.dscmunich.de`)"
+      - "traefik.http.routers.my-service-name.entrypoints=https"
+      - "traefik.http.routers.my-service-name.tls=true"
+    ports:
+      - 5000:5000
+    networks:
+      web:
+      internal:
+
+
+networks:
+  web:
+    external: true
+  internal:
+    internal: true

@@ -3,17 +3,19 @@ import urllib.parse
 import re
 import base64
 
+SERVER = "https://crypto-cookie.ctf.dscmunich.de"
+
 # Create random cookie
 r = requests.post(
-    url="http://127.0.0.1:5000/register",
-    data={"username": "daniel", "email": "daniel@code-byter.com"},
+    url=f"{SERVER}/register",
+    data={"username": "daniel", "email": "daniel@code-byter.com"}, verify=False
 )
-cookie = base64.b64decode(urllib.parse.unquote(r.url[29:]))
+cookie = base64.b64decode(urllib.parse.unquote(r.url[8 + len(SERVER):]))
 print(f"cookie: {base64.b64encode(bytes(cookie))}")
 
 # Get userid
 r = requests.get(
-    f"http://127.0.0.1:5000/?cookie={urllib.parse.quote(base64.b64encode(cookie))}"
+    f"{SERVER}?cookie={urllib.parse.quote(base64.b64encode(cookie))}", verify=False
 )
 user_id = bytearray(
     re.search("(?<=Your user ID is )\d{10}", r.text).group(0).encode("UTF-8")
@@ -35,5 +37,5 @@ cookie[14] = cookie[14] ^ user_id[7] ^ ord(":")
 cookie[15] = cookie[15] ^ user_id[8] ^ ord(" ")
 
 print(
-    f"Admin URL: http://127.0.0.1:5000/?cookie={urllib.parse.quote(base64.b64encode(bytes(cookie)))}"
+    f"Admin URL: {SERVER}/?cookie={urllib.parse.quote(base64.b64encode(bytes(cookie)))}"
 )

@@ -9,7 +9,7 @@ def encrypt_pdf(file_path, output_path):
     key = bytearray(random.getrandbits(8) for _ in range(4))
 
     # Perform encryption with a vulnerable block cipher
-    ciphertext = encrypt_vulnerable(plaintext, key)
+    ciphertext = otp_encryption(plaintext, key)
 
     with open(output_path, 'wb') as file:
         file.write(ciphertext)
@@ -17,7 +17,7 @@ def encrypt_pdf(file_path, output_path):
     print('Encryption completed successfully.')
     print(f'Key: {base64.b64encode(key).decode()}')
 
-def encrypt_vulnerable(plaintext, key):
+def otp_encryption(plaintext, key):
     block_size = 4
     ciphertext = bytearray()
 
