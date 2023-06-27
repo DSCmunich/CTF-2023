@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  baby:
+    build: ./0_baby
+    restart: always
+    ports:
+      - "10001:1337"
+  easy:
+    build: ./1_ez
+    restart: always
+    ports:
+      - "10002:1337"
+  medium:
+    build: ./2_med
+    restart: always
+    ports:
+      - "10003:1337"
+  hard:
+    build: ./boringmaze
+    restart: always
+    ports:
+      - "10004:1337"

