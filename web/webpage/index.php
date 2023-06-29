@@ -43,15 +43,15 @@ $result = $db->query($sql);
 				<header>
 					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
 					<h1 id="logo"><a href="#">Willis Corto</a></h1>
-					<p>I talked to a rogue AI<br />
+					<p>I learned from a rogue AI<br />
 					and now I'm totally crazy</p>
 				</header>
 				<nav id="nav">
 					<ul>
 						<li><a href="#one" class="active">About</a></li>
 						<li><a href="#two">Things I Can Do</a></li>
-						<li><a href="#three">A Few Accomplishments</a></li>
-						<li><a href="#four">Contact</a></li>
+						<li><a href="#three">Testimonials</a></li>
+						<li><a href="#four">Submit a Testimonial</a></li>
 					</ul>
 				</nav>
 			</section>
@@ -101,7 +101,10 @@ $result = $db->query($sql);
 									<div class="features">
 										<?php
 											while ($row = $result->fetch_assoc()) {
-												if(!$row["verified"] && !$isAdmin) {
+												if($row["verified"] !== "1" && $row["verified"] !== "0") {
+													continue;
+												}
+												if($row["verified"] !== "1" && !$isAdmin) {
 													continue;
 												}
 

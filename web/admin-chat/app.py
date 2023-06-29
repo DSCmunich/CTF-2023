@@ -9,7 +9,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 EASY_CHALLENGE_URL = os.getenv("EASY_CHALLENGE_URL") or "localhost:8081"
-MEDIUM_CHALLENGE_URL = os.getenv("EASY_CHALLENGE_URL") or "localhost:8082"
+HARD_CHALLENGE_URL = os.getenv("HARD_CHALLENGE_URL") or "localhost:8082"
+EASY_CHALLENGE_FLAG = os.getenv("EASY_CHALLENGE_FLAG")
+HARD_CHALLENGE_FLAG = os.getenv("HARD_CHALLENGE_FLAG")
 try:
     PORT = int(os.getenv("PORT"))
 except:
@@ -30,6 +32,9 @@ MESSAGES_FAILURE = [
 ]
 
 def open_url_as_admin(url):
+    if not url.startswith(EASY_CHALLENGE_URL) and not url.startswith(HARD_CHALLENGE_URL):
+        return False
+
     chrome_options = Options()
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-extensions")
@@ -40,7 +45,13 @@ def open_url_as_admin(url):
 
     success = False
     try:
-        # TODO login to the easy and medium challenges to make sure the browser has the cookies
+        # https://stackoverflow.com/a/28331099
+        if url.startswith(EASY_CHALLENGE_URL):
+            driver.get(EASY_CHALLENGE_URL + "/404")
+            driver.add_cookie({'name': 'PASSWORD', 'value': EASY_CHALLENGE_FLAG, 'domain': EASY_CHALLENGE_URL})
+        elif url.startswith(HARD_CHALLENGE_URL):
+            driver.get(HARD_CHALLENGE_URL + "/404")
+            driver.add_cookie({'name': 'PASSWORD', 'value': HARD_CHALLENGE_FLAG, 'domain': HARD_CHALLENGE_URL})
 
         driver.get(url)
         time.sleep(3)
