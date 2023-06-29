@@ -3,9 +3,8 @@ FROM debian:bookworm-slim
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         chromium chromium-driver \
-        python3 python3-pip \
+        python3 python3-selenium \
     && rm -rf /var/lib/apt/lists/* \
-    && pip3 install selenium \
     && useradd -m -s /bin/bash browser
 
 USER browser
