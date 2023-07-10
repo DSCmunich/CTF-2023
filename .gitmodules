@@ -1,6 +1,0 @@
-[submodule "llm/gpt-ctf"]
-	path = llm/gpt-ctf
-	url = https://github.com/Valentin-Metz/gpt-ctf.git
-[submodule "llm/gpt-ctf-client"]
-	path = llm/gpt-ctf-client
-	url = https://github.com/Valentin-Metz/gpt-ctf-client.git
