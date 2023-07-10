@@ -1,0 +1,86 @@
+version: "3.9"
+services:
+    webpage-a:
+        build: ./webpage
+        restart: "always"
+        networks:
+            web:
+            internala:
+        environment:
+            DB_HOST: mariadb-a
+            DB_USERNAME: willis
+            DB_PASSWORD: inD0ND3THQjKaXhb8S7EftHEOq3fNy
+            DB_NAME: webpage
+            ADMIN_PASSWORD_HASH: 0e8991033081c53d4804b58fd7ec870b33059bcdd2fac529c0f9f00c77d14026
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.web-a.rule=Host(`web-a.ctf.dscmunich.de`)"
+            - "traefik.http.routers.web-a.entrypoints=https"
+            - "traefik.http.routers.web-a.tls=true"
+
+    mariadb-a:
+        image: mariadb
+        networks:
+            internala:
+        environment:
+            MYSQL_ROOT_PASSWORD: SXC9gzW8PDpPQNwmpmgQNk84ccQdbu
+            MYSQL_DATABASE: webpage
+            MYSQL_USER: willis
+            MYSQL_PASSWORD: inD0ND3THQjKaXhb8S7EftHEOq3fNy
+        volumes:
+            - ./mariadb-a-data:/var/lib/mysql
+
+
+    webpage-b:
+        build: ./webpage
+        restart: "always"
+        networks:
+            web:
+            internalb:
+        environment:
+            DB_HOST: mariadb-b
+            DB_USERNAME: willis
+            DB_PASSWORD: t09grbqPzTCA6PaY6NOZn65EGRSQYR
+            DB_NAME: webpage
+            ADMIN_PASSWORD_HASH: 0e8991033081c53d4804b58fd7ec870b33059bcdd2fac529c0f9f00c77d14026
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.web-b.rule=Host(`web-b.ctf.dscmunich.de`)"
+            - "traefik.http.routers.web-b.entrypoints=https"
+            - "traefik.http.routers.web-b.tls=true"
+
+    mariadb-b:
+        image: mariadb
+        networks:
+            internalb:
+        environment:
+            MYSQL_ROOT_PASSWORD: jD9Pt5Y14fxK1vafgABYt1LqOUdM6c
+            MYSQL_DATABASE: webpage
+            MYSQL_USER: willis
+            MYSQL_PASSWORD: t09grbqPzTCA6PaY6NOZn65EGRSQYR
+        volumes:
+            - ./mariadb-b-data:/var/lib/mysql
+
+    admin-chat:
+        build: ./admin-chat
+        restart: "always"
+        networks:
+            web:
+        environment:
+            EASY_CHALLENGE_URL: https://web-a.ctf.dscmunich.de,https://web-b.ctf.dscmunich.de,
+            HARD_CHALLENGE_URL: https://secure-web-a.ctf.dscmunich.de,https://secure-web-b.ctf.dscmunich.de
+            EASY_CHALLENGE_FLAG: DSC{2_n1c3_XsS_my_br3th3r3n}
+            HARD_CHALLENGE_FLAG: DSC{2_w0w_such_s3cure_n0_xSs_h3r3}
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.web-admin-chat.rule=Host(`web-admin-chat.ctf.dscmunich.de`)"
+            - "traefik.http.routers.web-admin-chat.entrypoints=https"
+            - "traefik.http.routers.web-admin-chat.tls=true"
+
+networks:
+  web:
+    external: true
+  internala:
+    internal: true
+  internalb:
+    internal: true

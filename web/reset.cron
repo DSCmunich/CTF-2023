@@ -1,0 +1,15 @@
+0,10,20,30,40,50 * * * * docker exec -i --user root $(docker ps | grep web-webpage-a | awk '{ print $1; }') sh -c 'echo "{\"DB_HOST\":\"mariadb-a\",\"DB_USERNAME\":\"root\",\"DB_PASSWORD\":\"SXC9gzW8PDpPQNwmpmgQNk84ccQdbu\",\"DB_NAME\":\"webpage\",\"FLAG_DB\":\"DSC{1_h0ly_sql_1nj3ct10n}\",\"FLAG_FILE\":\"DSC{0_n1c3_w3b_upl04d}\"}" | php /root/reset.php'
+5,15,25,35,45,55 * * * * docker exec -i --user root $(docker ps | grep web-webpage-b | awk '{ print $1; }') sh -c 'echo "{\"DB_HOST\":\"mariadb-b\",\"DB_USERNAME\":\"root\",\"DB_PASSWORD\":\"jD9Pt5Y14fxK1vafgABYt1LqOUdM6c\",\"DB_NAME\":\"webpage\",\"FLAG_DB\":\"DSC{1_h0ly_sql_1nj3ct10n}\",\"FLAG_FILE\":\"DSC{0_n1c3_w3b_upl04d}\"}" | php /root/reset.php'
+
+#!/bin/bash
+
+set -euo pipefail
+
+echo "Starting reset script at $(date)"
+
+containerId="$(/usr/bin/docker ps | /usr/bin/grep web-webpage-a | /usr/bin/awk '{ print $1; }')"
+echo "Resetting webpage A, container id $containerId"
+
+/usr/bin/docker exec -i --user root "$containerId" sh -c 'echo "{\"DB_HOST\":\"mariadb-a\",\"DB_USERNAME\":\"root\",\"DB_PASSWORD\":\"SXC9gzW8PDpPQNwmpmgQNk84ccQdbu\",\"DB_NAME\":\"webpage\",\"FLAG_DB\":\"DSC{1_h0ly_sql_1nj3ct10n}\",\"FLAG_FILE\":\"DSC{0_n1c3_w3b_upl04d}\"}" | php /root/reset.php'
+
+echo "DONE resetting! $?"

@@ -69,11 +69,10 @@ $result = $db->query($sql);
 								</div>
 								<div class="container">
 									<header class="major">
-										<h2>Read Only</h2>
-										<p>Just an incredibly simple responsive site<br />
-										template freebie by <a href="http://html5up.net">HTML5 UP</a>.</p>
+										<h2>Willis Corto Webpage</h2>
+										<p>Embracing the intricate dance between technology and imagination. Come join me as we explore the limitless possibilities of the digital world together.</p>
 									</header>
-									<p>Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p>
+									<p>Hello! I'm Willis, a recent coding enthusiast and budding artificial intelligence aficionado. I'm thrilled that you've stumbled upon my little corner of the internet. This website, which I've proudly built from scratch, is the product of my newfound love for programming and an insatiable curiosity for the world of AI.</p>
 								</div>
 							</section>
 
@@ -81,7 +80,6 @@ $result = $db->query($sql);
 							<section id="two">
 								<div class="container">
 									<h3>Things I Can Do</h3>
-									<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer lorem ipsum dolor sit amet.</p>
 									<ul class="feature-icons">
 										<li class="icon solid fa-code">Write all the code</li>
 										<li class="icon solid fa-cubes">Stack small boxes</li>
